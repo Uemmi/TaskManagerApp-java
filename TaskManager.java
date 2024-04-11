@@ -118,6 +118,7 @@ public class TaskManager {
     }
 
     public void listTasks() {
+        System.out.println("----Tasks----");
         if (tasks.isEmpty()) {
             System.out.println("No tasks.");
         } else {
@@ -126,5 +127,6 @@ public class TaskManager {
                 System.out.println((i + 1) + ". " + task.getName() + " - " + (task.isCompleted() ? "[x]" : "[]"));
             }
         }
+        System.out.println("-------------");
     }
 }
