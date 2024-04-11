@@ -13,7 +13,7 @@ public class TaskManagerApp {
         System.out.println("Welcome to Task Manager!");
 
         while (true) {
-            System.out.print("Enter command (add, complete, delete, list, exit): ");
+            System.out.print("Enter command (add, complete, delete, delete completed, list, exit): ");
             String inputLine = scanner.nextLine().trim().toLowerCase();
 
             if (inputLine.startsWith("add")) {
@@ -21,15 +21,15 @@ public class TaskManagerApp {
                 taskManager.addTask(new Task(taskName));
                 System.out.println("Task added successfully.");
             } else if (inputLine.startsWith("complete")) {
-                int index = Integer.parseInt(inputLine.substring(9).trim()) - 1;
-                taskManager.completeTask(index);
+                String input = inputLine.substring(9).trim();
+                taskManager.completeTask(input);
                 System.out.println("Task marked as completed.");
             } else if (inputLine.startsWith("delete completed")) {
                 taskManager.deleteCompleted();
                 System.out.println("Tasks deleted successfully.");    
             } else if (inputLine.startsWith("delete")) {
-                int index = Integer.parseInt(inputLine.substring(7).trim()) - 1;
-                taskManager.deleteTask(index);
+                String input = inputLine.substring(7).trim();
+                taskManager.deleteTask(input);
                 System.out.println("Task deleted successfully.");
             } else if (inputLine.startsWith("list")) {
                 taskManager.listTasks();

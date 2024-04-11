@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
 
 public class TaskManager {
     private List<Task> tasks;
@@ -47,26 +46,65 @@ public class TaskManager {
         saveTasks();
     }
 
-    public void completeTask(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            Task completedTask = tasks.remove(index);
-            completedTask.markAsCompleted();
-            tasks.add(completedTask);
-            listTasks();
-            saveTasks();
-        } else {
-            System.out.println("Invalid task index.");
+    private static boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 
-    public void deleteTask(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            tasks.remove(index);
-            listTasks();
-            saveTasks();
+    public void completeTask(String index) {
+        if (isInteger(index)) {
+            int i = Integer.parseInt(index)-1;
+            if (i >= 0 && i < tasks.size()) {
+                Task completedTask = tasks.remove(i);
+                completedTask.markAsCompleted();
+                tasks.add(completedTask);
+                listTasks();
+                saveTasks();
+            } else {
+                System.out.println("Invalid task index.");
+            }
         } else {
-            System.out.println("Invalid task index.");
+            for (int i = tasks.size() - 1; i >= 0; i--) {
+                if (tasks.get(i).getName().equals(index)) {
+                    Task completedTask = tasks.remove(i);
+                    completedTask.markAsCompleted();
+                    tasks.add(completedTask);
+                    listTasks();
+                    saveTasks();
+                    return;
+                }
+            }
+            System.out.println("Task not found.");
         }
+        
+    }
+
+    public void deleteTask(String index) {
+        if (isInteger(index)) {
+            int i = Integer.parseInt(index)-1;
+            if (i >= 0 && i < tasks.size()) {
+                tasks.remove(i);
+                listTasks();
+                saveTasks();
+            } else {
+                System.out.println("Invalid task index.");
+            }
+        } else {
+            for (int i = tasks.size() - 1; i >= 0; i--) {
+                if (tasks.get(i).getName().equals(index)) {
+                    tasks.remove(i);
+                    listTasks();
+                    saveTasks();
+                    return;
+                }
+            }
+            System.out.println("Task not found.");
+        }
+        
     }
 
     public void deleteCompleted() {
